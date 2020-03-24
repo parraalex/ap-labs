@@ -1,0 +1,12 @@
+REPORT OF TEST:
+- Device: my operative system: macOS
+- Sample: text.txt
+- Time for mycat.: 0.000306
+- Time for defcat: 0.001416
+
+- Device: ap-labs linux OS
+- Sample: text.txt
+- Time for mycat.: 0.000492
+- Time for defcat: 0.000649
+
+Conclusion: it depends on how each operative system works, because on the test in macOS, the mycat was quicker than the default, but on virtualbox it was the opposite.

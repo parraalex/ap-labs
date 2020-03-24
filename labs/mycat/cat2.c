@@ -1,39 +1,50 @@
-#include <stdio.h>
+#include<stdio.h>
+#include<fcntl.h>
+#include<stdarg.h>
+#include<stdlib.h>
+#include <unistd.h>
+#include <time.h>
 
-/* filecopy:  copy file ifp to file ofp */
-void filecopy(FILE *ifp, FILE *ofp)
+//filecopy but with stanrard read write system calls
+void filecopy(int iFileDescriptor,int oFileDescriptor)
 {
-    int c;
-
-    while ((c = getc(ifp)) != EOF)
-        putc(c, ofp);
-
+    int readText;
+    char tmpBuffer[500];
+    
+    while((readText=read(iFileDescriptor,tmpBuffer,500)) > 0){
+        if(write(oFileDescriptor,tmpBuffer,readText) != readText){
+            printf("error when writing into file");
+        }
+    }
+        
+            
 }
 
-/* cat:  concatenate files, version 2 */
-int main(int argc, char *argv[])
-{
-    FILE *fp;
-    void filecopy(FILE *, FILE *);
-    char *prog = argv[0];   /* program name for errors */
-
-    if (argc == 1)  /* no args; copy standard input */
-        filecopy(stdin, stdout);
+int main(int argc,char *argv[])
+{   
+    clock_t start, end;
+    double cpu_time_used;
+    start = clock();
+    int fileDescriptor = 0;
+    char *prog = argv[0];
+    
+    if(argc == 1){
+        filecopy(0, 1);//stdin 0 stdout 1
+    }  
     else
-        while (--argc > 0)
-            if ((fp = fopen(*++argv, "r")) == NULL) {
-                fprintf(stderr, "%s: can′t open %s\n",
-			prog, *argv);
+        while(--argc > 0){
+            if((fileDescriptor = open(*++argv,O_RDONLY)) == -1){
+                fprintf(stderr, "%s: can′t open %s\n",prog, *argv);
                 return 1;
-            } else {
-                filecopy(fp, stdout);
-                fclose(fp);
             }
-
-    if (ferror(stdout)) {
-        fprintf(stderr, "%s: error writing stdout\n", prog);
-        return 2;
-    }
-
+            else
+            {
+                filecopy(fileDescriptor, 1);//stdout 1
+                close(fileDescriptor);
+            }
+        }  
+    end = clock();
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;  
+    printf("%f",cpu_time_used);
     return 0;
 }
