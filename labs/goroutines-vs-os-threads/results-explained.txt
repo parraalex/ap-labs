@@ -1,0 +1,11 @@
+Results Explained:
+
+9-4 - Big Pipeline
+
+First I tried with little goroutines and it ran fresh. Then I tried with a million, and got the job done. I tried then with 10 million, and thought that it would just take more time, but as I patiently waited, my computer started to heat, so I knew something was wrong. Then I researched a bit and found out that when the computer has 4gb of RAM, the machine supports 1 million routines. Mine has 8gb, so 10 million would be too much.
+
+--------------------------------------
+
+9.5 - PingPong Communication
+
+This excercize depends on the type of data that the routines pass and the processor. That's what I think. In my computer the average communication of data was around 3.3 million communications per second!!! that's insane.

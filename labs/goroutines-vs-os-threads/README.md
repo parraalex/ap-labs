@@ -1,3 +1,13 @@
+Notes on programs
+========
+9.4:
+Usage: go run chapter9-4.go numberRoutinesWished\
+
+9.5:
+Usage: go run chapter9-5.go\
+
+Both programs have their immediate data reporting mechanisms to print in console results. There is a results-explained.txt in which I discuss my findings.
+
 Lab - Goroutines vs OS Threads
 ==============================
 Read section 9.8 from The [Go Programming Language](https://www.amazon.com/dp/0134190440/ref=cm_sw_em_r_mt_dp_U_Uz0RDbHAH27PH) book.
